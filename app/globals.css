@@ -1,0 +1,9 @@
+:root {
+  --background: #F1F5F9;
+  --foreground: #171717;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+}
