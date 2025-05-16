@@ -47,7 +47,7 @@ export default function Home() {
       </Head>
 
       <header>
-        <a>
+        <a href="/">
           <Image
             id="logo"
             alt="logo"
@@ -59,7 +59,13 @@ export default function Home() {
       </header>
 
       <main>
-        <div className="forms">
+        <form
+          className="forms"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
           <input
             type="text"
             className="inputBar"
@@ -67,12 +73,23 @@ export default function Home() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button onClick={handleSubmit}>+</button>
-        </div>
+          <button
+            onClick={handleSubmit}
+            className={outputs.length === 0 ? "buttonEmpty" : "buttonFilled"}
+          >
+            {outputs.length === 0 ? (
+              <Image src="/plus.svg" alt="plus" width={18} height={18} />
+            ) : (
+              "+"
+            )}
+          </button>
+        </form>
         <div className="contents">
           {uncompleted.length === 0 ? (
             <div className="todoSection">
-              <Image src="todo.svg" alt="todoTitle" width={97} height={36} />
+              <div className="todoImg">
+                <Image src="todo.svg" alt="todoTitle" width={97} height={36} />
+              </div>
               <div className="todoEmpty">
                 <Image
                   src="/todo-small.png"
@@ -85,8 +102,10 @@ export default function Home() {
               </div>
             </div>
           ) : (
-            <div>
-              <Image src="todo.svg" alt="todoTitle" width={97} height={36} />
+            <div className="todoSection">
+              <div className="todoImg">
+                <Image src="todo.svg" alt="todoTitle" width={97} height={36} />
+              </div>
               {uncompleted.map((item) => (
                 <TodoList
                   key={item.id}
@@ -98,11 +117,11 @@ export default function Home() {
               ))}
             </div>
           )}
-        </div>
-        <div className="contents2">
           {completed.length === 0 ? (
             <div className="doneSection">
-              <Image src="done.svg" alt="donTitle" width={97} height={36} />
+              <div className="doneImg">
+                <Image src="done.svg" alt="donTitle" width={97} height={36} />
+              </div>
               <div className="doneEmpty">
                 <Image
                   src="/done-small.png"
@@ -116,7 +135,9 @@ export default function Home() {
             </div>
           ) : (
             <div className="doneSection">
-              <Image src="done.svg" alt="donTitle" width={97} height={36} />
+              <div className="doneImg">
+                <Image src="done.svg" alt="donTitle" width={97} height={36} />
+              </div>
               {completed.map((item) => (
                 <TodoList
                   key={item.id}
