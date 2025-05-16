@@ -1,12 +1,10 @@
-import type { Metadata } from "next";;
+import type { Metadata } from "next";
 import "./globals.css";
-
-
 
 export const metadata: Metadata = {
   title: "do it;",
   description: "Making a to do list",
-  icons:{
+  icons: {
     icon: "/favicon.svg",
   },
 };
@@ -18,8 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>      {children}
-      </body>
+      <body> {children}</body>
     </html>
   );
 }
