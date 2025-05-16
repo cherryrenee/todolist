@@ -74,23 +74,26 @@ header {
   font-size: 1rem;
   padding: 0 1em;
 }
-.todolist {
-  width: 100%;
-  border: 2px solid pink;
+.todoDiv {
+  width: 95%;
 }
-.todoCheckbox {
-  margin: 1em 0 0;
+.todoList {
   display: flex;
   align-items: center;
-  background: #fff;
+  justify-content: start;
   gap: 1em;
-  width: 344px;
-  height: 50px;
+  padding: 0.5em;
   border: 2px solid #0f172a;
   border-radius: 27px;
-  padding: 0.2em 0.5em;
-  cursor: pointer;
+  margin: 0.5em 0;
+  background: #fff;
+  max-width: 600px;
+  width: 100%;
+}
+.todoBar {
+  flex: 1;
   font-size: 1rem;
+  cursor: pointer;
 }
 .checkbox {
   display: none;
@@ -102,16 +105,17 @@ header {
   border-radius: 50%;
   background: #fefce8;
   transition: background-image 0.2s ease;
+  cursor: pointer;
 }
-.checkbox:checked + .todoCheckbox {
+.todoList.checked {
   background: #ede9fe;
 }
-.checkbox:checked + .todoCheckbox .checkmark {
+.todoList.checked .checkmark {
   background-image: url("/checked.svg");
   border: none;
   background-size: cover;
 }
-.checkbox:checked + .todoCheckbox .todoText {
+.todoList.checked .todoBar {
   text-decoration: line-through;
 }
 .forms {
@@ -182,4 +186,8 @@ main {
 p {
   font-size: 1rem;
   margin: 0.2em 0;
+}
+
+.hide {
+  display: none;
 }

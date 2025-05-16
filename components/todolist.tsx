@@ -1,3 +1,7 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 type TodoListProps = {
   id: string;
   text: string;
@@ -11,19 +15,29 @@ export default function TodoList({
   checked,
   onToggle,
 }: TodoListProps) {
+  const router = useRouter();
+
   return (
-    <div className="todoList">
-      <input
-        className="checkbox"
-        type="checkbox"
-        id={id}
-        checked={checked}
-        onChange={onToggle}
-      />
-      <label className="todoCheckbox" htmlFor={id}>
-        <span className="checkmark" />
-        <span className="todoText">{text}</span>
-      </label>
+    <div className="todoDiv">
+      <div className={`todoList ${checked ? " checked" : ""}`}>
+        <input
+          className="checkbox"
+          type="checkbox"
+          id={id}
+          checked={checked}
+          onChange={onToggle}
+        />
+        <span className="checkmark" onClick={onToggle} />
+        <div
+          className="todoBar"
+          onClick={() => {
+            console.log("clicked", id);
+            router.push(`/detail/${id}?text=${text}&checked=${checked}`);
+          }}
+        >
+          {text}
+        </div>
+      </div>
     </div>
   );
 }
