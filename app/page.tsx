@@ -4,6 +4,7 @@ import TodoList from "@/components/todolist";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
+import { useTodoStore } from "@/store/todoStore";
 
 type TodoItem = {
   id: string;
@@ -13,16 +14,10 @@ type TodoItem = {
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>("");
-  const [outputs, setOutputs] = useState<TodoItem[]>([]); // 입력값 누적
-  const toggleChecked = (id: string) => {
-    setOutputs((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, checked: !item.checked } : item
-      )
-    );
-  };
-  const completed = outputs.filter((item) => item.checked);
-  const uncompleted = outputs.filter((item) => !item.checked);
+  const {todos, addTodo, toggleChecked} = useTodoStore(); // 입력값 누적
+  
+  const completed = todos.filter((item) => item.checked);
+  const uncompleted = todos.filter((item) => !item.checked);
 
   const handleSubmit = () => {
     if (inputValue.trim() === "") return; // 빈값은 추가 안 함
@@ -33,7 +28,7 @@ export default function Home() {
       checked: false,
     };
 
-    setOutputs([...outputs, newItem]); // 이전 값에 새 값 추가
+    addTodo(newItem); // 이전 값에 새 값 추가
     setInputValue(""); // 입력창 비우기
   };
 
@@ -75,9 +70,9 @@ export default function Home() {
           />
           <button
             onClick={handleSubmit}
-            className={outputs.length === 0 ? "buttonEmpty" : "buttonFilled"}
+            className={todos.length === 0 ? "buttonEmpty" : "buttonFilled"}
           >
-            {outputs.length === 0 ? (
+            {todos.length === 0 ? (
               <Image src="/plus.svg" alt="plus" width={18} height={18} />
             ) : (
               "+"

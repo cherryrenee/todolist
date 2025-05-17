@@ -1,15 +1,10 @@
 "use client";
 
+import {useParams} from "next/navigation";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
 import { FileUploader } from "@/components/imageFile";
+import { useTodoStore } from "@/store/todoStore";
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
 
 const metadata = {
   title: "do it;",
@@ -17,17 +12,14 @@ const metadata = {
   icons: { icon: "/favicon.svg" },
 };
 
-export default function DetailPage({ params }: PageProps) {
-  const searchParams = useSearchParams();
+export default function DetailPage() {
+ const params = useParams();
+  const id = params.todoDetail as string;
+ 
+  const { todos, toggleChecked, updateText } = useTodoStore();
+const todo = todos.find((t) => t.id === params.todoDetail);
 
-  const text = searchParams.get("text");
-  const checked = searchParams.get("checked") === "true";
-
-  const [isChecked, setIsChecked] = useState(checked);
-
-  const handleToggle = () => {
-    setIsChecked((prev) => !prev);
-  };
+if (!todo) return <div>존재하지 않는 항목입니다.</div>;
   return (
     <>
       <header>
@@ -43,20 +35,24 @@ export default function DetailPage({ params }: PageProps) {
       </header>
       <main>
         <div className="todoDiv">
-          <div className={`todoList ${isChecked ? "checked" : ""}`}>
+          <div className={`todoList ${todo.checked ? "checked" : ""}`}>
             <input
               className="checkbox"
               type="checkbox"
-              id={params.id}
-              checked={isChecked}
-              onChange={handleToggle}
-              onClick={handleToggle}
+              id={todo.id}
+              checked={todo.checked}
+              onChange={()=> toggleChecked(todo.id)}
             />
-            <span className="checkmark" />
-            <div className="todoBar">{text}</div>
+            <span className="checkmark" onClick={()=>toggleChecked(todo.id)} />
+            <input
+              className="todoBar"
+              type="text"
+              value={todo.text}
+              onChange={(e) => updateText(todo.id, e.target.value)}
+            />
           </div>
         </div>
-        <FileUploader />
+        <FileUploader todoId={todo.id} />
       </main>
     </>
   );

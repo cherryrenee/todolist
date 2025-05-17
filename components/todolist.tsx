@@ -31,8 +31,7 @@ export default function TodoList({
         <div
           className="todoBar"
           onClick={() => {
-            console.log("clicked", id);
-            router.push(`/detail/${id}?text=${text}&checked=${checked}`);
+            router.push(`/detail/${id}`);
           }}
         >
           {text}

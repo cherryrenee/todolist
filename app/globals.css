@@ -95,6 +95,8 @@ header {
   flex: 1;
   font-size: 1rem;
   cursor: pointer;
+  background: none;
+  border: none;
 }
 .checkbox {
   display: none;
@@ -291,5 +293,64 @@ p {
   transform: translateX(-50%);
 }
 .memoText{
-
+  position: absolute;
+  width: 100%;
+  font-size: 1.2rem;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom:0;
+  margin: auto;
+  text-align: center;
+  border: none;
+  background:none;
+}
+.memoText:focus{
+  outline: none;
+}
+.editBtns{
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  margin: 1em auto 2em;
+}
+.gonnaEdit{
+  width: 168px;
+  height: 56px;
+  border: 2px solid #0F172A;
+  background-color: #e2e8f0;
+    box-shadow: 2px 3px 0 #0f172a;
+    border-radius: 24px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.gonnaDelete{
+  width: 168px;
+  height: 56px;
+  border: 2px solid #0F172A;
+  background-color: #F43F5E;
+    box-shadow: 2px 3px 0 #0f172a;
+    border-radius: 24px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+}
+.completeEdit{
+  width: 168px;
+  height: 56px;
+  border: 2px solid #0F172A;
+  background-color: #BEF264;
+    box-shadow: 2px 3px 0 #0f172a;
+    border-radius: 24px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
