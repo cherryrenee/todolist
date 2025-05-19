@@ -348,6 +348,7 @@ p {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: #0f172a;
 }
 .gonnaDelete {
   width: 168px;
@@ -362,6 +363,7 @@ p {
   justify-content: center;
   color: #fff;
   cursor: pointer;
+  flex-shrink: 0;
 }
 .completeEdit {
   width: 168px;
