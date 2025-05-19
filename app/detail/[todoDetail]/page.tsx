@@ -49,6 +49,7 @@ export default function DetailPage() {
       </header>
       <main>
         <div className="todoDiv">
+          {/* 헤더 부분 */}
           <div className={`todoList ${todo.checked ? "checked" : ""}`}>
             <input
               className="checkbox"
@@ -57,6 +58,7 @@ export default function DetailPage() {
               checked={todo.checked}
               onChange={() => toggleChecked(todo.id)}
             />
+            {/* 상세페이지에서도 체크 가능 */}
             <span
               className="checkmark"
               onClick={() => toggleChecked(todo.id)}

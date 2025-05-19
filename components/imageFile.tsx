@@ -5,15 +5,21 @@ import { useTodoStore } from "@/store/todoStore";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+// FileUploader 컴포넌트
+// 할일의 메모와 이미지를 업로드하는 컴포넌트
 export const FileUploader = ({ todoId }: { todoId: string }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
+  // zustand 스토어에서 todos, updateMemo, updateImage, removeTodo 가져오기
   const { updateMemo, updateImage, removeTodo, todos } = useTodoStore();
 
+  // todoId에 해당하는 todo를 찾기
   const todo = todos.find((t) => t.id === todoId);
   if (!todo) return null;
 
+  // 파일 선택 시 호출되는 함수
+  // 파일을 base64로 변환하여 todo에 저장
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -36,6 +42,8 @@ export const FileUploader = ({ todoId }: { todoId: string }) => {
 
   return (
     <div>
+      {/* 이미지 업로드 버튼 */
+      /* 파일 선택 input은 숨김 처리 */}
       <input
         type="file"
         accept="image/*"
@@ -63,6 +71,7 @@ export const FileUploader = ({ todoId }: { todoId: string }) => {
           </button>
         </div>
       )}
+      {/* 메모 입력란 */}
       <div className="memo">
         <input
           type="text"

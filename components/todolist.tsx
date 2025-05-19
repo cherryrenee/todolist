@@ -10,6 +10,7 @@ type TodoListProps = {
   onToggle: () => void;
 };
 
+// TodoList 컴포넌트
 export default function TodoList({
   id,
   text,
@@ -20,6 +21,7 @@ export default function TodoList({
 
   return (
     <div className="todoDiv">
+      {/* 헤더 부분 */}
       <div className={`todoList ${checked ? " checked" : ""}`}>
         <input
           className="checkbox"
