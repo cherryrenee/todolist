@@ -3,7 +3,7 @@
 import TodoList from "@/components/todolist";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTodoStore } from "@/store/todoStore";
 
 type TodoItem = {
@@ -14,8 +14,22 @@ type TodoItem = {
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>("");
-  const {todos, addTodo, toggleChecked} = useTodoStore(); // 입력값 누적
-  
+  const { todos, addTodo, toggleChecked } = useTodoStore(); // 입력값 누적
+  const [largeScreen, setLaregeScreen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const updateSize = () => {
+      setLaregeScreen(window.innerWidth >= 744);
+    };
+
+    updateSize(); // 초기 화면 크기 설정
+    window.addEventListener("resize", updateSize); // 리사이즈 이벤트 리스너 등록
+
+    return () => {
+      window.removeEventListener("resize", updateSize); // 컴포넌트 언마운트 시 리스너 제거
+    };
+  }, []);
+
   const completed = todos.filter((item) => item.checked);
   const uncompleted = todos.filter((item) => !item.checked);
 
@@ -32,6 +46,17 @@ export default function Home() {
     setInputValue(""); // 입력창 비우기
   };
 
+  const PlusIcon = () => (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="#0f172a">
+      <path
+        d="M12 5v14M5 12h14"
+        stroke="black"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+
   return (
     <>
       <Head>
@@ -42,15 +67,21 @@ export default function Home() {
       </Head>
 
       <header>
-        <a href="/">
-          <Image
-            id="logo"
-            alt="logo"
-            src="/Size=Small.png"
-            width={71}
-            height={40}
-          />
-        </a>
+        <div className="doIt">
+          <a href="/">
+            {largeScreen ? (
+              <Image src="/largesize.svg" width={151} height={40} alt="logo" />
+            ) : (
+              <Image
+                id="logo"
+                alt="logo"
+                src="/smallsize.svg"
+                width={71}
+                height={40}
+              />
+            )}
+          </a>
+        </div>
       </header>
 
       <main>
@@ -72,10 +103,20 @@ export default function Home() {
             onClick={handleSubmit}
             className={todos.length === 0 ? "buttonEmpty" : "buttonFilled"}
           >
-            {todos.length === 0 ? (
+            {todos.length === 0 && largeScreen ? (
+              <div className="emptyButtonDiv">
+                <Image src="/plus.svg" alt="plus" width={18} height={18} />{" "}
+                <p className="add">추가하기</p>
+              </div>
+            ) : todos.length === 0 && !largeScreen ? (
               <Image src="/plus.svg" alt="plus" width={18} height={18} />
+            ) : largeScreen ? (
+              <div className="filledButtonDiv">
+                <PlusIcon />
+                <p className="add">추가하기</p>
+              </div>
             ) : (
-              "+"
+              <PlusIcon />
             )}
           </button>
         </form>

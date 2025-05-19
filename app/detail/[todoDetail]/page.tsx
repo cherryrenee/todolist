@@ -1,25 +1,19 @@
 "use client";
 
-import {useParams} from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { FileUploader } from "@/components/imageFile";
 import { useTodoStore } from "@/store/todoStore";
 
-
-const metadata = {
-  title: "do it;",
-  description: "Making a to do list",
-  icons: { icon: "/favicon.svg" },
-};
-
 export default function DetailPage() {
- const params = useParams();
+  const params = useParams();
   const id = params.todoDetail as string;
- 
-  const { todos, toggleChecked, updateText } = useTodoStore();
-const todo = todos.find((t) => t.id === params.todoDetail);
+  const router = useRouter();
 
-if (!todo) return <div>존재하지 않는 항목입니다.</div>;
+  const { todos, toggleChecked, updateText } = useTodoStore();
+  const todo = todos.find((t) => t.id === id);
+
+  if (!todo) return <div>존재하지 않는 항목입니다.</div>;
   return (
     <>
       <header>
@@ -41,9 +35,12 @@ if (!todo) return <div>존재하지 않는 항목입니다.</div>;
               type="checkbox"
               id={todo.id}
               checked={todo.checked}
-              onChange={()=> toggleChecked(todo.id)}
+              onChange={() => toggleChecked(todo.id)}
             />
-            <span className="checkmark" onClick={()=>toggleChecked(todo.id)} />
+            <span
+              className="checkmark"
+              onClick={() => toggleChecked(todo.id)}
+            />
             <input
               className="todoBar"
               type="text"
