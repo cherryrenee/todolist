@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📝 do it;
 
-## Getting Started
+> 나만의 To-Do 리스트: 작성, 체크, 상세 수정, 메모, 이미지 첨부까지!
 
-First, run the development server:
+---
+
+## 💡 프로젝트 소개
+
+**do it;**은 간단하지만 확장성 있는 To-Do 리스트 웹앱입니다.  
+Next.js의 App Router 기반으로 구성되어 있으며,  
+할 일 추가부터 체크, 상세 편집, 이미지 업로드, 메모 작성까지 가능합니다.
+
+---
+
+## 🔧 주요 기능
+
+| 기능                 | 설명                                           |
+| -------------------- | ---------------------------------------------- |
+| ✅ 할 일 추가        | 텍스트 입력 후 버튼 또는 엔터로 할 일 생성     |
+| ✅ 할 일 체크        | 체크박스로 완료 처리 가능 (done 영역으로 이동) |
+| ✅ 상세페이지 이동   | 각 할 일을 클릭하면 상세페이지로 이동          |
+| ✅ 할 일 텍스트 수정 | 상세페이지에서 실시간 텍스트 수정              |
+| ✅ 이미지 첨부       | 이미지 선택 또는 수정 가능 (base64로 저장)     |
+| ✅ 메모 작성         | 메모 입력 가능 (상태 저장됨)                   |
+| ✅ 삭제 기능         | 상세페이지에서 할 일 전체 삭제 가능            |
+| ✅ 반응형 디자인     | 모바일, 태블릿, PC 화면에 따라 UI 반응         |
+
+---
+
+## 🛠️ 기술 스택
+
+- **Next.js 14** (App Router)
+- **TypeScript**
+- **Zustand** (상태 관리)
+- **CSS Modules / Global CSS**
+- **Base64 이미지 처리**
+- **LocalStorage (zustand + persist)**
+
+---
+
+## 📁 프로젝트 구조
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+.
+├── app
+│   ├── page.tsx            # 메인 페이지
+│   └── detail
+│       └── [todoDetail]    # 상세 페이지 동적 라우팅
+├── components
+│   ├── todolist.tsx        # 각 할 일 항목 컴포넌트
+│   └── imageFile.tsx       # 상세페이지용 이미지 & 메모 업로더
+├── store
+│   └── todoStore.ts        # Zustand 기반 todo 저장소
+├── public                  # 이미지 및 아이콘 파일
+│   └── plus.svg 등
+├── styles
+│   └── global.css          # 전체 스타일
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
