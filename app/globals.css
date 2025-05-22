@@ -377,6 +377,7 @@ p {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: #0f172a;
 }
 @media (min-width: 748px) and (max-width: 1024px) {
   .buttonEmpty,
